@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/lbs/w3.css">
+    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+
+    <div class="container" style="text-align: right">
+      <p>hello {{ user_id }} <i class="fa fa-user" aria-hidden="true"></i>
+        <a href="{{ url_for('login') }}">
+          <span class="glyphicon glyphicon-log-out"></span>
+        </a>
+      </p>
+    </div>
+
+      <form action="" method="post">
+        <input type="text" placeholder="work" name="work" value="{{
+          request.form.work }}">
+        <input type="text" class="form-add-date" placeholder="date" name="date" value="{{
+          request.form.date }}">
+        <input class="btn btn-default" type="submit" value="ADD">
+      </form>
+      {% if error %}
+        <p class="error-index"><strong>Error:</strong>{{ error }}</p>
+      {% endif %}
+
+      <form action="" method="post" enctype="multipart/form-data">
+          <ul>
+              {% for user in users %}
+                  <li class="data-out" style="font-size: 20pt">{{ user }}<a class="editor" href="{{ url_for('edit', user_id = user_id) }}">Edit</a></li>
+              {% endfor %}
+          </ul>
+      </form>>
+
+</body>
+</html>

@@ -12,6 +12,17 @@ con = sqlite3.connect('test.db')
 
 with con:
 	cur = con.cursor()
+    #
+	# cur.execute("DROP TABLE IF EXISTS Todo")
+	# cur.execute("CREATE TABLE Todo(ID INTEGER PRIMARY KEY AUTOINCREMENT, todo TEXT, ngay date, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES Login(ID))")
+
+#	cur.executemany("INSERT INTO Todo(todo, ngay, user_id) VALUES(?, ?, ?)", cars)
+
+    #
+	# cur.execute("select user_id from Todo, Login where Todo.user_id = Login.ID and username = 'tu'", )
+	# datas = cur.fetchall()
+	# print(datas)
+
 
 def selectUserID():
 	con = sqlite3.connect("test.db")
@@ -21,6 +32,12 @@ def selectUserID():
 	con.close()
 	return datas
 
+# a = selectUserID()
+# for l, k, v in a:
+# 	print(l)
+# 	print(k)
+
+
 def retrieveUsers(a):
 	con = sqlite3.connect("test.db")
 	cur = con.cursor()
@@ -29,6 +46,8 @@ def retrieveUsers(a):
 	con.close()
 	return users
 
+print(retrieveUsers('tu'))
+# print(retrieveUsers('tu'))
 def insertUsersTodo(todo, ngay, user_id):
 	con = sqlite3.connect("test.db")
 	cur = con.cursor()
@@ -36,9 +55,15 @@ def insertUsersTodo(todo, ngay, user_id):
 	con.commit()
 	con.close()
 
+# pr#int(insertUsersTodo('game', '2018-4-5', user_id))
 
 
+# print(insertUsersTodo(''))
 
+# 	if y == 'tu' and z == 'phamvantu':
+# 		print('Okie')
+# 	else:
+# 		print('false')
 # def insertUser(username,password):
 #     con = sqlite3.connect("tu.db")
 #     cur = con.cursor()
