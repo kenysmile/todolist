@@ -36,7 +36,7 @@
       <form action="" method="post" enctype="multipart/form-data">
           <ul>
               {% for user in users %}
-                  <li class="data-out" style="font-size: 20pt">{{ user }}<a class="editor" href="{{ url_for('edit', user_id = user_id) }}">Edit</a></li>
+                  <li class="data-out" style="font-size: 20pt">{{ user }}<a class="editor" href="{{ url_for('edit', user_id = user_id) }}">Edit</a><a class="remove" href="{{ url_for('remove') }}">Remove</a></li>
               {% endfor %}
           </ul>
       </form>>

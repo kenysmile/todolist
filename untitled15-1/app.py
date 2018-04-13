@@ -3,26 +3,22 @@ import sqlite3
 import model as dbHandler
 app = Flask(__name__)
 
-# con = sqlite3.connect("tu.db")
-# cur = con.cursor()
-# cur.execute("SELECT * FROM User")
-# datas = cur.fetchall()
-a = []
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    # con = sqlite3.connect("test.db")
-    # cur = con.cursor()
-    # cur.execute("SELECT * FROM Login")
-    # items = cur.fetchall()
-    items = dbHandler.selectUserID()
+    con = sqlite3.connect("pvt.db")
+    cur = con.cursor()
+    cur.execute("SELECT Use, pas FROM User")
+    items = cur.fetchall()
     error = None
+    # user_id = request.cookies.get('use')
+    # user_data = request.cookies.get('data')
     if request.method == 'POST':
         for (k,v) in items:
             if request.form['username'] == k and request.form['password'] == v:
                 response = redirect(url_for("index"))
                 response.set_cookie('user', k)
-             #   response.set_cookie('id', a)
+                response.set_cookie('pass', v)
                 return response
             else:
                 error = 'Invalid.Please try again'
@@ -35,24 +31,24 @@ def index():
     if request.method == 'POST':
         todo = request.form['work']
         ngay = request.form['date']
-
-        #dbHandler.insertUsersTodo(todo, ngay, users)
-        dbHandler.retrieveUsers(user_id)
-
+        dbHandler.insertUsers(todo, user_id, ngay)
+        data = dbHandler.retrieveUsers(user_id)
         response1 = redirect(url_for('add'))
+        response1.set_cookie('user1', user_id)
         return response1
-
-    return render_template('index.html', users = users, user_id = user_id)
+    else:
+        return render_template('index.html', users = users, user_id = user_id)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     error = None
     user_id = request.cookies.get('user')
+
     users = dbHandler.retrieveUsers(user_id)
     if request.method == 'POST':
         todo = request.form['work']
         ngay = request.form['date']
-        dbHandler.insertUsersTodo(todo, user_id, ngay)
+        dbHandler.insertUsers(todo, user_id, ngay)
         dbHandler.retrieveUsers(user_id)
         res = redirect(url_for('index'))
         res.set_cookie('todo', todo)
@@ -89,18 +85,19 @@ def register():
     #             dbHandler.registerUser(name, pas)
     #             #print(dbHandler.registerUser(name, pas))
     #             return redirect(url_for('login'))
-#     # return render_template('register.html', error=error)
-# @app.route('/remove', ['GET', 'POST'])
-# def remove():
-#     a = []
-#     user_id = request.cookies.get('user')
-#     users = dbHandler.retrieveUsers(user_id)
-#     if request.method == 'POST':
-#         for user in users:
-#             a.append(user)
-#         dbHandler.removeUsers(user)
-#         return redirect(url_for('index'))
-#     return render_template('index.html')
+    # return render_template('register.html', error=error)
+@app.route('/remove', ['GET', 'POST'])
+def remove():
+    a = []
+    user_id = request.cookies.get('user')
+    users = dbHandler.retrieveUsers(user_id)
+    if request.method == 'POST':
+        for user in users:
+            a.append(user)
+        dbHandler.removeUsers(user)
+
+        return redirect(url_for('index'))
+    return render_template('index.html')
 
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
