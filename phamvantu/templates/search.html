@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todo Of Me......</title>
-    <link rel="stylesheet" href="../static/lbs/w3.css">
-    <link rel="stylesheet" href="../static/index/index.css">
-
+    <title>Todo</title>
 </head>
 <body>
     <h3>Hello {{ username }}</h3>
@@ -16,23 +13,16 @@
             <input type="submit" value="Search">
         </form>        
     </div>
-
-    <div>Task
-        <form action="/add"  method="POST">
-            <input type="text" name="todo">
-            <input type="text" name="ngay">
-            <input type="submit" value="Add">
-        </form>
-    </div>
     {% if error %}
     <p class="error-register"><strong>Error:</strong>{{ error }}</p>
-    {% endif %}
+    {% endif %} 
+
     <div>
         <form action="" method="POST">
             <h2>Item</h2>
             <ul>
                 {% for todo in todos %}
-                    <li style="font-size: 30pt">{{ todo.todo }}     {{ todo.ngay }}<a style="font-size: 10pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a></li>
+                    <li style="font-size: 30pt">{{ todo.todo }}     {{ todo.ngay }}</li>
                 {% endfor %}
             </ul>
         </form>

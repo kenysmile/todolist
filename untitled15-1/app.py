@@ -59,20 +59,18 @@ def add():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    a = []
-    con = sqlite3.connect("pvt.db")
-    cur = con.cursor()
-    cur.execute("SELECT Use, pas FROM User")
-    items = cur.fetchall()
-    error = None
-
     if request.method == 'POST':
         name = request.form['user']
         pas = request.form['pass']
         dbHandler.registerUser(name, pas)
-        #print(dbHandler.registerUser(name, pas))
         return redirect(url_for('login'))
-    return render_template('register.html', error=error)
+    return render_template('register.html')
+    #
+    #
+    #     dbHandler.registerUser(name, pas)
+    #
+    #     return redirect(url_for('login'))
+    # return render_template('register.html', error=error)
 
     # if request.method == 'POST':
     #     name = request.form['user']
@@ -85,19 +83,21 @@ def register():
     #             dbHandler.registerUser(name, pas)
     #             #print(dbHandler.registerUser(name, pas))
     #             return redirect(url_for('login'))
-    # return render_template('register.html', error=error)
-@app.route('/remove', ['GET', 'POST'])
+    # return render_template('register.html')
+@app.route('/remove')
 def remove():
-    a = []
-    user_id = request.cookies.get('user')
-    users = dbHandler.retrieveUsers(user_id)
-    if request.method == 'POST':
-        for user in users:
-            a.append(user)
-        dbHandler.removeUsers(user)
+    return 'OKIe'
 
-        return redirect(url_for('index'))
-    return render_template('index.html')
+    # a = []
+    # user_id = request.cookies.get('user')
+    # users = dbHandler.retrieveUsers(user_id)
+    # if request.method == 'POST':
+    #     for user in users:
+    #         a.append(user)
+    #     dbHandler.removeUsers(user)
+    #
+    #     return redirect(url_for('index'))
+    # return render_template('index.html')
 
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
