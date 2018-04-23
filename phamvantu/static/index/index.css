@@ -1,0 +1,63 @@
+.formbody {
+    /* padding-top: 60px; */
+    border: 2px solid #4CAF50; 
+    position: static;
+}
+
+.datatodo {
+    margin: 70px;
+    border: 2px solid #4CAF50;
+    width: 600px;
+    text-align: center;
+    /* display: inline */
+}
+
+.formdata {
+    padding: 30px
+}
+
+.formsearch {
+    padding: 20px
+}
+.pull {
+    width: 600px;
+    border: 2px solid blue;
+
+}
+
+
+.btn-delete {
+    /* border: 2px solid #4CAF50; */
+    /* text-align: center */
+
+}
+.btn-add {
+    text-align: left
+}
+
+.test-data {
+    display: inline block;
+    /* word-spacing: 80px */
+}
+
+.li:hover {
+    color: green
+}
+.body {
+    /* padding: 100px */
+}
+.homepage {
+    font-size: 20pt
+}
+.container {
+    font-size: 15pt
+}
+
+.username {
+    font-family: Georgia, serif;
+} 
+
+.text-header {
+    text-shadow: 2px 2px #FF0000;
+    font-family: Georgia, serif;
+}

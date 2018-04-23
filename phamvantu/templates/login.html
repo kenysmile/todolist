@@ -14,6 +14,9 @@
         <input type="submit" value="acess">
         <a href="{{ url_for('register') }}">Register</a>
     </form>
+    {% if erroracess %}
+    <p class="error-acess"><strong>Error:</strong>{{ erroracess }}</p>
+    {% endif %}
 
 
 </body>

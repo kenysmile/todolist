@@ -2,31 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todo</title>
+    <title>Todo Of Me......</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../static/lbs/w3.css">
+    <link rel="stylesheet" href="../static/index/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <h3>Hello {{ username }}</h3>
-    <h2>Todo List</h2>
-    <div>
-        <form action="/search"  method="POST">
-            <input type="text" name="todo">
-            <input type="submit" value="Search">
-        </form>        
-    </div>
-    {% if error %}
-    <p class="error-register"><strong>Error:</strong>{{ error }}</p>
-    {% endif %} 
+    <script type="text/javascript">
+        $(btnUpdate).click(function(){
+            $.ajax({
+                method:'POST',
+                url:'http://localhost:5000/api/show/'+id,
+            }
+            )
+        })
+    </script>
 
-    <div>
-        <form action="" method="POST">
-            <h2>Item</h2>
-            <ul>
-                {% for todo in todos %}
-                    <li style="font-size: 30pt">{{ todo.todo }}     {{ todo.ngay }}</li>
-                {% endfor %}
-            </ul>
-        </form>
-    </div>
+    <div class="form">
+        <div class="form-header" style="background:#7777">
+            <div class="container">
+                <a class="home-page" style="text-align:left" href="{{ url_for('index') }}">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </a>
+                <p class="username" style="text-align:right">hello {{ username }} <i class="fa fa-user" aria-hidden="true"></i>
+                    <a href="{{ url_for('acess') }}">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </p>
+                <h2 class='text-header' style="text-align:center">Todo List</h2>
 
+            </div>
+        </div>
+        <div class="formsearch" style="text-align:right">
+            <form action="/search"  method="POST">
+                <input type="text" name="todo">
+                <input type="submit" value="Search">
+            </form>        
+        </div>
+        <div class="formbody">
+            <div class="formbodyheader" style="text-align:center">
+                <div class="form-add">
+                    <form class = 'btn-add' style="text-align:center" action="/add"  method="POST">
+                        <h2>Task </h2>
+                        <input type="text" name="todo">
+                        <input type="text" name="ngay">
+                        <input type="submit" value="Add">
+                    </form>
+                    {% if erroradd %}
+                    <p class="error-add"><strong>Error:</strong>{{ erroradd }}</p>
+                    {% endif %}
+                </div>
+                <div class="formdata">
+
+                    <form action="" method="POST">   
+                            {% for todo in todos %}
+                            <div class="panel-body-test">
+                                <div class="form-inline">
+                                    <div class="test" style="display:inline">
+                                        <label for="todoInput{{ todo.id }}">Task</label>
+                                        <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}" name="todoup">
+                
+                                        <label for="ngayInput{{ todo.id }}">Ngày</label>
+                                        <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.ngay }}" name="ngayup">
+                
+                                        <a class="btn-delete"style="font-size:15pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
+                                        
+                                        <button class="btn btn-primary updateButton" todo_id = "{{ todo.id }}" >Update</button>      
+                                        
+                                        
+                                        <a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                                        </button>
+                                                        <h4 class="modal-title" id="editModalLabel">Update Task </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form role="form">
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="control-label">Task</label>
+                                                                <input type="text" class="form-control" id="editTitle">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="control-label"></label>
+                                                                <input type="text" class="form-control" id="editDescription">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% if errorsearch %}
+                            <p class="error-search"><strong>Error:</strong>{{ errorsearch }}</p>
+                            {% endif %} 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+</html> 
