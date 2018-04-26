@@ -49,11 +49,11 @@
                 </div>
                 <div class="formdata">
 
-                    <form action="/update" method="POST">   
+                    <div action="/update" method="POST">   
                         {% for todo in todos %}
                             <div id="todoSection{{ todo.id }}" class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Todo: <span id="todoNumber{{ todo.id }}"></span> </h3>
+                                    <h3 class="panel-title"><span id="todoNumber{{ todo.id }}"></span> </h3>
                                 </div>
                             
                                 <div class="panel-body-data">
@@ -63,10 +63,9 @@
                                             <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}">
                         
                                             <label for="ngayInput{{ todo.id }}">Ngày</label>
-                                            <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.ngay }}">
-                        
+                                            <input type="text" class="form-control" id="ngayInput{{ todo.id }}" value="{{ todo.ngay }}">
+                                            
                                             <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
-
                                             <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}">Update</button>
                                             <!-- <button type="button" class="btn btn-update"> Update</button>   -->
                                             <!-- <input type="submit" value="Update"> -->
@@ -79,7 +78,7 @@
                             {% if errorsearch %}
                             <p class="error-search"><strong>Error:</strong>{{ errorsearch }}</p>
                             {% endif %} 
-                    </form>
+                        </div>
                     
                 </div>
             </div>

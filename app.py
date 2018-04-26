@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 
+from flask_restful import Resource, Api
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
-#SQLALCHEMY_TRACK_MODIFICATION = True
+#SQLALCHEMY_TRACK_MODIFICATION = True(
 db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'super secret'    
 
+api = Api(app)
 
 class Login(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +31,19 @@ class Show(db.Model):
 db.create_all()
 # api_manager = APIManager(app, flask_sqlalchemy_db=db)
 # api_manager.create_api(Show, methods=['GET', 'POST', 'PUT', 'DELETE'])
+
+class TodoRes(Resource):
+    def post(self):
+
+        json = request.get_json()
+        id = json['id']
+        todo = json['todo']
+        ngay = json['ngay']
+        a = Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay']))
+        db.session.commit()
+        return {"id": id}
+
+api.add_resource(TodoRes, '/api/todo')
 
 @app.route('/')
 def home():
@@ -114,31 +130,5 @@ def delete(id):
     return redirect(url_for('index'))
 
 
-# @app.route('/update/<todo_id>',)
-# def update(todo_id):
-
-#     show = Show(todo = request.form['todoupdate'], ngay=request.form['ngayupdate'], name_id = id)
-
-#     db.session.update(show)
-#     db.session.commit()  
-
-#     return redirect(url_for('index'))
-
-
-@app.route('/update', methods = ['POST'])
-def update():
-    if request.method == 'POST':
-
-        show = Show.query.filter_by(id=id).first()
-        show.todo = request.form['todoupdate']
-        show.ngay = request.fotm['ngayupdate']
-        db.session.commit()
-        return redirect(url_for('index'))
-        # return 'OK'
-    return render_template('update.html')
-        # return jsonify({'result':'sucess'})
-
-
 if __name__ == '__main__':
-
     app.run(debug = True)
