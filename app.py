@@ -39,10 +39,14 @@ class TodoRes(Resource):
         id = json['id']
         todo = json['todo']
         ngay = json['ngay']
-        a = Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay']))
-        db.session.commit()
-        return {"sucess": 1}
 
+        checkupdate = Show.query.filter_by(todo = todo, ngay = ngay).first() # check data update
+        if checkupdate:
+            return redirect(url_for('index'))
+        else:
+            a = Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay']))
+            db.session.commit()
+            return {"sucess": 1}
 api.add_resource(TodoRes, '/api/todo')
 
 @app.route('/')
