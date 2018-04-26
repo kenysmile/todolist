@@ -4,4 +4,3 @@ flask
 gunicorn
 gevent
 flask_sqlalchemy
-flask_bootstrap

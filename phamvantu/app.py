@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 
-# from flask_bootstrap import Bootstrap
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
 #SQLALCHEMY_TRACK_MODIFICATION = True
