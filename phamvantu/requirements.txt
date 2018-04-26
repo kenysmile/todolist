@@ -3,3 +3,6 @@ mongoengine
 flask
 gunicorn
 gevent
+flask_sqlalchemy
+flask.ext.restless
+flask_bootstrap
