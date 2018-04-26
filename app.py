@@ -41,7 +41,7 @@ class TodoRes(Resource):
         ngay = json['ngay']
         a = Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay']))
         db.session.commit()
-        return {"id": id}
+        return {"sucess": 1}
 
 api.add_resource(TodoRes, '/api/todo')
 

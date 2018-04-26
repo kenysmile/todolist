@@ -15,7 +15,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             dataType: 'json'
         }).done(function(data) {
-            data = 'Luu thanh cong'
+            data = 'Edit thành công'
             alert(data)
         });
     

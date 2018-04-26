@@ -65,10 +65,8 @@
                                             <label for="ngayInput{{ todo.id }}">Ngày</label>
                                             <input type="text" class="form-control" id="ngayInput{{ todo.id }}" value="{{ todo.ngay }}">
                                             
+                                            <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}"> Edit</button>
                                             <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
-                                            <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}">Update</button>
-                                            <!-- <button type="button" class="btn btn-update"> Update</button>   -->
-                                            <!-- <input type="submit" value="Update"> -->
                                                                 
                                         </div>
                                     </div>

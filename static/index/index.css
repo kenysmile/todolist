@@ -31,7 +31,8 @@
 .btn-delete {
     border: 1px solid ; 
     /* text-align: center; */
-    padding: 5px
+    padding: 5px;
+    /* background: blue */
 
 
 }
@@ -64,4 +65,8 @@
 .text-header {
     text-shadow: 2px 2px #FF0000;
     font-family: Georgia, serif;
+}
+
+.btn btn-primary updateButton{
+    color: white
 }
