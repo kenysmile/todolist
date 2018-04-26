@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
@@ -30,6 +30,10 @@ class Show(db.Model):
 db.create_all()
 # api_manager = APIManager(app, flask_sqlalchemy_db=db)
 # api_manager.create_api(Show, methods=['GET', 'POST', 'PUT', 'DELETE'])
+
+@app.route('/')
+def home():
+    return redirect(url_for('acess'))
 
 @app.route('/index')
 def index():
