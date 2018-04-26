@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.restless import APIManager
 
 from flask_bootstrap import Bootstrap
 
