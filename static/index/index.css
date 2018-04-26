@@ -35,6 +35,7 @@
     /* background: blue */
 
 
+
 }
 .btn-add {
     text-align: left
@@ -68,5 +69,5 @@
 }
 
 .btn btn-primary updateButton{
-    color: white
+    margin: 5px
 }
