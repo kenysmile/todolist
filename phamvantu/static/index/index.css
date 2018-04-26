@@ -1,6 +1,6 @@
 .formbody {
     /* padding-top: 60px; */
-    border: 2px solid #4CAF50; 
+    /* border: 2px solid #4CAF50;  */
     position: static;
 }
 
@@ -13,7 +13,7 @@
 }
 
 .formdata {
-    padding: 30px
+    padding: 50px
 }
 
 .formsearch {
@@ -22,13 +22,17 @@
 .pull {
     width: 600px;
     border: 2px solid blue;
+    /* margin: 2px */
+
 
 }
 
 
 .btn-delete {
-    /* border: 2px solid #4CAF50; */
-    /* text-align: center */
+    border: 1px solid ; 
+    /* text-align: center; */
+    padding: 5px
+
 
 }
 .btn-add {

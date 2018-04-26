@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Todo</title>
-</head>
-<body>
-    <h1>Todo List</h1>
-    <div>Task
-        <form action="/test" method="POST">
-            <input type="text" name="a">
-            <input type="text" name="b">
-            <input type="submit" value="Test">
-        </form>
+<div class="panel-heading">
+        <h3 class="panel-title">Todo: <span id="todoNumber{{ todo.id }}"></span> </h3>
     </div>
-</body>
-</html>
+
+    <div class="panel-body-test">
+        <div class="form-inline">
+            <div class="form-group" style="display:inline">
+                <label for="todoInput{{ todo.id }}">Task</label>
+                <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}">
+
+                <label for="ngayInput{{ todo.id }}">Ngày</label>
+                <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.ngay }}">
+
+                <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
+                    
+                <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}">Update</button>
+                    
+                                                                                
+            </div>
+        </div>
+    </div>

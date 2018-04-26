@@ -13,15 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <script type="text/javascript">
-        $(btnUpdate).click(function(){
-            $.ajax({
-                method:'POST',
-                url:'http://localhost:5000/api/show/'+id,
-            }
-            )
-        })
-    </script>
 
     <div class="form">
         <div class="form-header" style="background:#7777">
@@ -35,7 +26,6 @@
                     </a>
                 </p>
                 <h2 class='text-header' style="text-align:center">Todo List</h2>
-
             </div>
         </div>
         <div class="formsearch" style="text-align:right">
@@ -59,36 +49,38 @@
                 </div>
                 <div class="formdata">
 
-                    <form action="" method="POST">   
-                            {% for todo in todos %}
-                                <div id="todoSection{{ todo.id }}" class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Todo: <span id="todoNumber{{ todo.id }}"></span> </h3>
-                                    </div>
+                    <form action="/update" method="POST">   
+                        {% for todo in todos %}
+                            <div id="todoSection{{ todo.id }}" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Todo: <span id="todoNumber{{ todo.id }}"></span> </h3>
+                                </div>
                             
-                                <div class="panel-body-test">
+                                <div class="panel-body-data">
                                     <div class="form-inline">
                                         <div class="form-group" style="display:inline">
                                             <label for="todoInput{{ todo.id }}">Task</label>
                                             <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}">
-                    
+                        
                                             <label for="ngayInput{{ todo.id }}">Ngày</label>
                                             <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.ngay }}">
-                    
-                                            <a class="btn-delete"style="font-size:15pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
-                                            
-                                            <button class="btn btn-primary updateButton" todo_id = "{{ todo.id }}">Update</button>
-                                             
-                                            
-                                                                                                        
+                        
+                                            <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
+
+                                            <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}">Update</button>
+                                            <!-- <button type="button" class="btn btn-update"> Update</button>   -->
+                                            <!-- <input type="submit" value="Update"> -->
+                                                                
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             {% endfor %}
                             {% if errorsearch %}
                             <p class="error-search"><strong>Error:</strong>{{ errorsearch }}</p>
                             {% endif %} 
                     </form>
+                    
                 </div>
             </div>
         </div>

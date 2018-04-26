@@ -30,7 +30,7 @@ class Show(db.Model):
         self.name_id = name_id
 db.create_all()
 # api_manager = APIManager(app, flask_sqlalchemy_db=db)
-# api_manager.create_api(show, methods=['GET', 'POST', 'PUT', 'DELETE'])
+# api_manager.create_api(Show, methods=['GET', 'POST', 'PUT', 'DELETE'])
 
 @app.route('/index')
 def index():
@@ -46,7 +46,7 @@ def add():
     username = session.get('username') # username => user_id
     if request.method == 'POST':
         # name_id = db.session.query(Show.name_id).filter(Show.name_id == Login.id).filter(Login.username == username)
-        name_id = db.session.query(Login.id).filter(Login.username == username)
+        name_id = db.session.query(Login.id).filter(Login.username == username) #show id with
         todo = Show(todo = request.form['todo'], ngay=request.form['ngay'], name_id = name_id)
         checkadd = Show.query.filter_by(todo = todo.todo, ngay = todo.ngay, name_id = todo.name_id).first()#check ID exited
         if checkadd:
@@ -64,8 +64,8 @@ def register():
         new_user = request.form['a']
         new_password = request.form['b']
         new = Login(username=request.form['a'], password=request.form['b'])
-        user = Login.query.filter_by(username=new_user).first()
-        if user:
+        user = Login.query.filter_by(username=new_user).first() # check user
+        if user: # check user exited
             error2 = 'Account already exists'
         else:
             new = Login(username=request.form['a'], password=request.form['b'])
@@ -82,7 +82,7 @@ def acess():
         dblogin = Login.query.all()
         POST_USERNAME = request.form['username']
         POST_PASSWORD = request.form['password']
-        user = Login.query.filter_by(username=POST_USERNAME, password=POST_PASSWORD).first()
+        user = Login.query.filter_by(username=POST_USERNAME, password=POST_PASSWORD).first() # check user, pass Login
         if user:
             session['username'] = POST_USERNAME
             return redirect(url_for('index'))
@@ -96,14 +96,14 @@ def search():
     if request.method == 'POST':
         username = session.get('username')
         searchtodo = request.form['todo']
-        a = Show.query.filter_by(todo=searchtodo).first()
+        searchdata = Show.query.filter_by(todo = searchtodo).first() # check search data
 
-        if a:
+        if searchdata:
             todos = Show.query.filter(Show.name_id == Login.id).filter(Login.username == username).filter(Show.todo == searchtodo)
-            return render_template('search.html', todos = todos, username = usename)      
+            return render_template('search.html', todos = todos)      
         else:
             errorsearch = 'Data not found'
-    return render_template('index.html', errorsearch = errorsearch)
+    return render_template('index.html', errorsearch = errorsearch, username = username)
 
 @app.route('/delete/<id>')
 def delete(id):
@@ -112,16 +112,32 @@ def delete(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+
+# @app.route('/update/<todo_id>',)
+# def update(todo_id):
+
+#     show = Show(todo = request.form['todoupdate'], ngay=request.form['ngayupdate'], name_id = id)
+
+#     db.session.update(show)
+#     db.session.commit()  
+
+#     return redirect(url_for('index'))
+
+
 @app.route('/update', methods = ['POST'])
 def update():
     if request.method == 'POST':
-        show = Show.query.filter_by(id=request.form['id']).first()
-        show.todo = request.form['todo']
-        show.ngay = request.fotm['ngay']
+
+        show = Show.query.filter_by(id=id).first()
+        show.todo = request.form['todoupdate']
+        show.ngay = request.fotm['ngayupdate']
         db.session.commit()
-        return render_template('update.html')
+        return redirect(url_for('index'))
+        # return 'OK'
+    return render_template('update.html')
         # return jsonify({'result':'sucess'})
-    return render_template('index.html')
+
+
 if __name__ == '__main__':
 
     app.run(debug = True)
