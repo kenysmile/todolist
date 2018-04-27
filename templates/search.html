@@ -13,15 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <script type="text/javascript">
-        $(btnUpdate).click(function(){
-            $.ajax({
-                method:'POST',
-                url:'http://localhost:5000/api/show/'+id,
-            }
-            )
-        })
-    </script>
 
     <div class="form">
         <div class="form-header" style="background:#7777">
@@ -35,7 +26,6 @@
                     </a>
                 </p>
                 <h2 class='text-header' style="text-align:center">Todo List</h2>
-
             </div>
         </div>
         <div class="formsearch" style="text-align:right">
@@ -59,50 +49,26 @@
                 </div>
                 <div class="formdata">
 
-                    <form action="" method="POST">   
-                            {% for todo in todos %}
-                            <div class="panel-body-test">
-                                <div class="form-inline">
-                                    <div class="test" style="display:inline">
-                                        <label for="todoInput{{ todo.id }}">Task</label>
-                                        <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}" name="todoup">
-                
-                                        <label for="ngayInput{{ todo.id }}">Ngày</label>
-                                        <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.ngay }}" name="ngayup">
-                
-                                        <a class="btn-delete"style="font-size:15pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
-                                        
-                                        <button class="btn btn-primary updateButton" todo_id = "{{ todo.id }}" >Update</button>      
-                                        
-                                        
-                                        <a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                                        </button>
-                                                        <h4 class="modal-title" id="editModalLabel">Update Task </h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form role="form">
-                                                            <div class="form-group">
-                                                                <label for="recipient-name" class="control-label">Task</label>
-                                                                <input type="text" class="form-control" id="editTitle">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="message-text" class="control-label"></label>
-                                                                <input type="text" class="form-control" id="editDescription">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                    
+                    <div action="/update" method="POST">   
+                        {% for todo in todos %}
+                            <div id="todoSection{{ todo.id }}" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span id="todoNumber{{ todo.id }}"></span> </h3>
+                                </div>
+                            
+                                <div class="panel-body-data">
+                                    <div class="form-inline">
+                                        <div class="form-group" style="display:inline">
+                                            <label for="todoInput{{ todo.id }}">Task</label>
+                                            <input type="text" class="form-control" id="todoInput{{ todo.id }}" value="{{ todo.todo }}">
+                        
+                                            <label for="ngayInput{{ todo.id }}">Ngày</label>
+                                            <input type="text" class="form-control" id="ngayInput{{ todo.id }}" value="{{ todo.ngay }}">
+                                            
+                                            <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}"> Edit</button>
+                                            <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
+                                                                
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -110,10 +76,14 @@
                             {% if errorsearch %}
                             <p class="error-search"><strong>Error:</strong>{{ errorsearch }}</p>
                             {% endif %} 
-                    </form>
+                        </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html> 
