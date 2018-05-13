@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-
     <div class="form">
         <div class="form-header" style="background:#7777">
             <div class="container">
@@ -38,7 +37,7 @@
             <div class="formbodyheader" style="text-align:center">
                 <div class="form-add">
                     <form class = 'btn-add' style="text-align:center" action="/add"  method="POST">
-                        <h2>Task </h2>
+                        <h2>Add Todo</h2>
                         <input type="text" name="todo">
                         <input type="text" name="ngay">
                         <input type="submit" value="Add">
@@ -65,9 +64,12 @@
                                             <label for="ngayInput{{ todo.id }}">Ngày</label>
                                             <input type="text" class="form-control" id="ngayInput{{ todo.id }}" value="{{ todo.ngay }}">
                                             
+                                            <label for="nameidInput{{ todo.id }}">Name_id</label>
+                                            <input type="number" class="form-control" id="nameidInput{{ todo.id }}" value="{{ todo.name_id }}">
+
                                             <button type="submit" class="btn btn-primary updateButton" todo_id = "{{ todo.id }}"> Edit</button>
-                                            <a class="btn-delete"style="font-size:12pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
-                                                                
+                                            <button type="submit" class="btn btn-primary deleteButton" todo_id = "{{ todo.id }}"> Delete</button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -85,5 +87,6 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+
 </body>
 </html> 

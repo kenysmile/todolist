@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/pvt.db'
 db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'super secret'    
 
@@ -30,24 +30,26 @@ db.create_all()
 
 class TodoRes(Resource):
     def post(self):
+ #show id with
 
         json = request.get_json()
         id = json['id']
         todo = json['todo']
         ngay = json['ngay']
-        checkupdate = Show.query.filter_by(todo = todo, ngay = ngay).first() # check data update
-        
+        nameid = json['nameid']
+        checkupdate = Show.query.filter_by(todo = todo, ngay = ngay, name_id = nameid).first() # check data update
         if checkupdate:
             return redirect(url_for('index'))
         else:
-            Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay']))
+            Show.query.filter_by(id=id).update(dict(todo=json['todo'], ngay=json['ngay'], name_id = nameid))
             db.session.commit()
-            return {"sucess": 1}
+            return {"sucess": nameid}
 
 api.add_resource(TodoRes, '/api/todo')
 
 @app.route('/')
 def home():
+    
     return redirect(url_for('acess'))
 
 @app.route('/index')
@@ -75,7 +77,7 @@ def add():
             db.session.commit()
             return redirect(url_for('index'))
     
-    return render_template('index.html', erroradd = erroradd)
+    return render_template('index.html', erroradd = erroradd )
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -119,6 +121,7 @@ def search():
     errorsearch = None
     if request.method == 'POST':
         username = session.get('username')
+
         searchtodo = request.form['todo']
         searchdata = Show.query.filter_by(todo = searchtodo).first() # check search data
 
